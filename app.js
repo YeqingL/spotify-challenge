@@ -5,7 +5,7 @@ var ctrl = app.controller("myCtrl", function($scope, $http) {
     $scope.keyword = $('input').val();
     $scope.audioObject = {};
     $scope.dataInfo = false;
-    $scope.displayInfo = 'hide';
+    $scope.displayInfo = 'show';
 
     // Respond to the dropdown menu
     $("#select").change(function() {
