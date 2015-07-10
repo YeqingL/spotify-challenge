@@ -41,27 +41,24 @@
         <div class="container-fixed">
             <!-- Show three searching results -->
             <div ng-show="selectedType == 'album'" ng-repeat="ele in currentType" class="col-md-12" id="album">
-                <img class="img" src="{{ele.images[0].url}}">
+                <a href="{{ele.external_urls.spotify}}" target="_blank"><img class="img" src="{{ele.images[0].url}}"></a>
                 <ul ng-show="dataInfo">
                     <li>Name: {{ele.name}}</li>
                     <li>Album Type: {{ele.album_type}}</li>
-                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">View on Spotify</a></li>
                 </ul>
             </div>
             <div ng-show="selectedType == 'artist'" ng-repeat="ele in currentType" class="col-md-4" id="artist">
-                <img class="img" src="{{ele.images[0].url}}">
+                <a href="{{ele.external_urls.spotify}}" target="_blank"><img class="img" src="{{ele.images[0].url}}"></a>
                 <ul ng-show="dataInfo">
                     <li>Name: {{ele.name}}</li>
                     <li>Popularity: {{ele.popularity}}</li>
-                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">View on Spotify</a></li>
                 </ul>
             </div>
             <div ng-show="selectedType == 'playlist'" ng-repeat="ele in currentType" class="col-md-4" id="playlist">
-                <img class="img" src="{{ele.images[0].url}}" >
+                <a href="{{ele.external_urls.spotify}}" target="_blank"><img class="img" src="{{ele.images[0].url}}" ></a>
                 <ul ng-show="dataInfo">
                     <li>Name: {{ele.name}}</li>
                     <li>Number of Songs: {{ele.tracks.total}}</li>
-                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">listen</a></li>
                 </ul>
             </div>
             <div ng-show="selectedType == 'track'" ng-repeat="ele in currentType" class="col-md-4">
