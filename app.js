@@ -7,10 +7,12 @@ var ctrl = app.controller("myCtrl", function($scope, $http) {
     $scope.dataInfo = false;
     $scope.displayInfo = 'hide';
 
+    // Respond to the dropdown menu
     $("#select").change(function() {
         $scope.selectedType = $(this).val();
     });
 
+    // Fetch data from Spotify API
     $scope.getData = function() {
         $http.get("https://api.spotify.com/v1/search?type=" + $scope.selectedType + "&query=" + $scope.keyword)
              .success(function(response) {
@@ -28,6 +30,7 @@ var ctrl = app.controller("myCtrl", function($scope, $http) {
              });
     };
 
+    // Control the display of information of search results
     $scope.toggle = function() {
         $scope.dataInfo = !$scope.dataInfo;
         if (!$scope.dataInfo) {
@@ -37,6 +40,7 @@ var ctrl = app.controller("myCtrl", function($scope, $http) {
         }
     };
 
+    // Play the track when clicked
     $scope.play = function(song) {
         if($scope.currentSong == song) {
             $scope.audioObject.pause();
