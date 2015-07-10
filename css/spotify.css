@@ -1,0 +1,69 @@
+body {
+    font-family: 'Gochi Hand', cursive;
+    background-image: url('background.jpg');
+    background-size: cover;
+}
+
+body, #search {
+    color: #272727;
+}
+
+form div label {
+    font-size: 40px;
+}
+
+form div p {
+    font-family: sans-serif;
+    color: gray;
+    font-size: 15px;
+}
+
+#home {
+    height: 40px;
+    width: 40px;
+}
+
+#search {
+    margin: 10px;
+    text-align: center;
+    font-size: 150%;
+}
+
+#magnify {
+    text-align: center;
+    font-size: 180px;
+    color: #EFFFD7;
+}
+
+#img:hover {
+    cursor: pointer;
+}
+
+.img {
+    height: 15em;
+    width: 15em;
+    margin: 5px;
+    border: solid 4px white;
+    background-color: white;
+}
+
+.img, ul {
+    float: left;
+}
+
+ul {
+    list-style-type: circle;
+    font-size: 15px;
+    width: 60%;
+}
+
+#album ul {
+    font-size: 20px;
+}
+
+#toTop {
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
+    font-size: 150%;
+}

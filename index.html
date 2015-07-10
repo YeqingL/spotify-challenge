@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Gochi+Hand' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/spotify.css"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js"></script>
+    <script src="app.js"></script>
+    <link href="app.css" type="text/css" />
+    <meta charset="utf-8">
+    <title>Spotify Search</title>
+    <link rel="shortcut icon" href="css/icon.jpg">
+</head>
+<body>
+    <div ng-app="myApp" ng-controller="myCtrl">
+        <form name="form" novalidate>
+            <div id="search">
+                <a href="index.html"><img id="home" src="css/house.png"></a>
+                <label>Spotify Search:</label>
+                <select id="select">
+                    <option value='album' selected="selected">Album</option>
+                    <option value='artist'>Artist</option>
+                    <option value='playlist'>Playlist</option>
+                    <option value='track'>Track</option>
+                </select>
+                <input name="search" type="text" size="50" placeholder="Enter your keyword here :)" ng-model="keyword" required></input>
+                <button id="submit" ng-click="getData()" ng-disabled="form.search.$invalid">search!</button>
+                <button ng-click="toggle()" ng-disabled="form.search.$invalid||currentType.length==0||selectedType == 'track'">{{displayInfo}} Info</button>              
+                <p ng-show="form.search.$error.required">This field is required.</p>
+                <p ng-show="currentType.length==0">Sorry, unable to find your search.</p>
+                <p ng-show="selectedType == 'track' && currentType.length>0">{{currentType.length}} results found. Click to sample</p>
+            </div>
+        </form>
+        <p id="magnify" ng-hide="currentType.length>0">{{keyword}}</p>
+        <div class="container-fixed">
+            <!-- show three searching results -->
+            <div ng-show="selectedType == 'album'" ng-repeat="ele in currentType" class="col-md-12" id="album">
+                <img class="img" src="{{ele.images[0].url}}"></img>
+                <ul ng-show="dataInfo">
+                    <li>Name: {{ele.name}}</li>
+                    <li>Album Type: {{ele.album_type}}</li>
+                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">View on Spotify</a></li>
+                <ul>
+            </div>
+            <div ng-show="selectedType == 'artist'" ng-repeat="ele in currentType" class="col-md-4" id="artist">
+                <img class="img" src="{{ele.images[0].url}}"></img>
+                <ul ng-show="dataInfo">
+                    <li>Name: {{ele.name}}</li>
+                    <li>Popularity: {{ele.popularity}}</li>
+                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">View on Spotify</a></li>
+                <ul>
+            </div>
+            <div ng-show="selectedType == 'playlist'" ng-repeat="ele in currentType" class="col-md-4" id="playlist">
+                <img class="img" src="{{ele.images[0].url}}" ></img>
+                <ul ng-show="dataInfo">
+                    <li>Name: {{ele.name}}</li>
+                    <li>Number of Songs: {{ele.tracks.total}}</li>
+                    <li><a href="{{ele.external_urls.spotify}}" target="_blank">listen</a></li>
+                </ul>
+            </div>
+            <div ng-show="selectedType == 'track'" ng-repeat="ele in currentType" class="col-md-4">
+                <img class="img" id="img" src="{{ele.album.images[0].url}}" title="Name: {{ele.name}}" ng-click="play(ele.preview_url)"></img>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="toTop">Back to Top &uarr;</a>
+</body>
