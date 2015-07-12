@@ -17,13 +17,24 @@ var ctrl = app.controller("myCtrl", function($scope, $http) {
         $http.get("https://api.spotify.com/v1/search?type=" + $scope.selectedType + "&query=" + $scope.keyword)
              .success(function(response) {
                 if ($scope.selectedType == "album" && response.albums.items.length > 0) {
-                    data = $scope.currentType = [response.albums.items[0],response.albums.items[1],response.albums.items[2]];
+                    $scope.currentType = [];
+                    var index = 0;
+                    for (var i = 0; i < response.albums.items.length; i++) {
+                        $scope.albumObject = {};
+                        $scope.albumObject.album = response.albums.items[i];
+                        $scope.currentType.push($scope.albumObject);                  
+                        $http.get("https://api.spotify.com/v1/albums/" + response.albums.items[i].id + "/tracks")
+                             .success(function(data) {
+                            $scope.currentType[index].tracks = data.items;
+                            index++;
+                        });
+                    }
                 } else if ($scope.selectedType == "artist") {
-                    data = $scope.currentType = response.artists.items;
+                    $scope.currentType = response.artists.items;
                 } else if ($scope.selectedType == "playlist") {
-                    data = $scope.currentType = response.playlists.items;
+                    $scope.currentType = response.playlists.items;
                 } else if ($scope.selectedType == "track") {
-                    data = $scope.currentType = response.tracks.items;
+                    $scope.currentType = response.tracks.items;
                 } else {
                     $scope.currentType = [];
                 }

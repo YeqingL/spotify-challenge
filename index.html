@@ -37,14 +37,18 @@
                 <p ng-show="selectedType == 'track' && currentType.length>0">{{currentType.length}} results found. Click to sample</p>
             </div>
         </form>
+        <!-- magnifies keywords entered in homepage -->
         <p id="magnify" ng-hide="currentType.length>0">{{keyword}}</p>
+        <!-- display searching results -->
         <div class="container-fixed">
-            <!-- Show three searching results -->
             <div ng-show="selectedType == 'album'" ng-repeat="ele in currentType" class="col-md-12" id="album">
-                <a href="{{ele.external_urls.spotify}}" target="_blank"><img class="img" src="{{ele.images[0].url}}"></a>
+                <a href="{{ele.album.external_urls.spotify}}" target="_blank"><img class="img" src="{{ele.album.images[0].url}}"></a>
                 <ul ng-show="dataInfo">
-                    <li>Name: {{ele.name}}</li>
-                    <li>Album Type: {{ele.album_type}}</li>
+                    <li>Name: {{ele.album.name}}</li>
+                    <li>Album Type: {{ele.album.album_type}}</li>
+                    <div id="tracks">
+                        <li ng-repeat="song in ele.tracks" ng-click="play(song.preview_url)">{{song.name}}</li>
+                    </div>
                 </ul>
             </div>
             <div ng-show="selectedType == 'artist'" ng-repeat="ele in currentType" class="col-md-4" id="artist">
